@@ -16,7 +16,7 @@ jobs:
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           usedocker: true
-          docker_build_args: |
-            POSTGRE_CONNECTION
-        env:
-          POSTGRE_CONNECTION: ${{ secrets.POSTGRE_CONNECTION }}
+          #docker_build_args: |
+          #  POSTGRE_CONNECTION
+        #env:
+        #  POSTGRE_CONNECTION: ${{secrets.POSTGRE_CONNECTION}}
