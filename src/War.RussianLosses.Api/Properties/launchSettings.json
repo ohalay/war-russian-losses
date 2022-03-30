@@ -1,0 +1,20 @@
+{
+  "profiles": {
+    "War.RussianLosses.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "graphql",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:50409;http://localhost:50410"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/graphql",
+      "publishAllPorts": true,
+      "useSSL": true
+    }
+  }
+}
