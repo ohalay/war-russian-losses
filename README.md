@@ -1,10 +1,11 @@
 # War russian losses
 
 <!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here --->
-![GitHub repo size](https://img.shields.io/github/repo-size/scottydocs/README-template.md)
-![GitHub contributors](https://img.shields.io/github/contributors/scottydocs/README-template.md)
-![GitHub stars](https://img.shields.io/github/stars/scottydocs/README-template.md?style=social)
-![GitHub forks](https://img.shields.io/github/forks/scottydocs/README-template.md?style=social)
+[![Deploy to Heroku](https://github.com/ohalay/war-russian-losses/actions/workflows/deploy.yml/badge.svg)](https://github.com/ohalay/war-russian-losses/actions/workflows/deploy.yml)
+![GitHub repo size](https://img.shields.io/github/repo-size/ohalay/war-russian-losses)
+![GitHub contributors](https://img.shields.io/github/contributors/ohalay/war-russian-losses)
+![GitHub stars](https://img.shields.io/github/stars/ohalay/war-russian-losses?style=social)
+![GitHub forks](https://img.shields.io/github/forks/ohalay/war-russian-losses?style=social)
 
 Project is an `API` that allows `users` to get information about russian losses in Ukrainian-Russian war from day to day. API is base on GraphQL.
 

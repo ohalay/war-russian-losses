@@ -18,6 +18,5 @@ jobs:
           usedocker: true
           docker_build_args: |
             POSTGRE_CONNECTION
-            SECRET_KEY
         env:
           POSTGRE_CONNECTION: ${{ secrets.POSTGRE_CONNECTION }}
