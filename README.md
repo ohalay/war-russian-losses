@@ -24,7 +24,7 @@ To install `War.RussianLosses.Api`, follow these steps:
 - Run insert script `Infrastructure\Migrations\Insert.sql`
 
 ## Using War.RussianLosses.Api
-There are two option possible for using API with host (host)[http://ukrainian-war.herokuapp.com]`
+There are two option possible for using API with host - http://ukrainian-war.herokuapp.com
 
 * `{host}/graphql` - graphql API with documented schema
 * `{host}/image?from=<date>&to=<date>` - generate image with date range 
