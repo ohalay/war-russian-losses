@@ -10,7 +10,6 @@
 Project is an `API` that allows `users` to get information about russian losses in Ukrainian-Russian war from day to day. API is base on GraphQL.
 
 ## Prerequisites
-
 Before you begin, ensure you have met the following requirements:
 
 * You have installed the latest version of `.NET`
@@ -18,7 +17,6 @@ Before you begin, ensure you have met the following requirements:
 * You have installed or remote `postgres` server
 
 ## Installing War.RussianLosses.Api
-
 To install `War.RussianLosses.Api`, follow these steps:
 
 - Add ef core *postgre connection* string to user secrets
@@ -26,8 +24,10 @@ To install `War.RussianLosses.Api`, follow these steps:
 - Run insert script `Infrastructure\Migrations\Insert.sql`
 
 ## Using War.RussianLosses.Api
+There are two option possible for using API with host (host)[http://ukrainian-war.herokuapp.com]`
 
-To use War.RussianLosses.Api, juts run from ms vs or vs code.
+* `{host}/graphql` - graphql API with documented schema
+* `{host}/image?from=<date>&to=<date>` - generate image with date range 
 
 ## Contributing to War.RussianLosses.Api
 To contribute to `War.RussianLosses.Api`, follow these steps:

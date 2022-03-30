@@ -6,7 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>e0ecaea8-4931-4ba1-953a-3944ab3645e3</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..</DockerfileContext>
+    <DockerfileContext>.</DockerfileContext>
+    <DockerfileFile>..\..\Dockerfile</DockerfileFile>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(ImplicitUsings)' == 'enable'">
@@ -23,6 +24,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.3" />
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta14" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddDbContext<WarContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Postgre")));
+    .AddDbContext<WarContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Postgre")))
+    .AddScoped<ImageBuilder>();
 
 builder.Services
     .AddGraphQLServer()
@@ -16,5 +17,10 @@ builder.Services
 var app = builder.Build();
 
 app.MapGraphQL();
+app.MapGet("/img", async (DateOnly? from, DateOnly? to, ImageBuilder builder) => 
+{
+    var imgStream = await builder.BuildImgStreamAsync(from, to);
+    return Results.File(imgStream, contentType: "image/jpeg");
+});
 
 app.Run();
