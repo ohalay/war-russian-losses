@@ -18,7 +18,7 @@ public class RussinLoss
     public DateOnly Date { get; set; }
 
     public int LossTypeId { get; set; }
-    public LossType LosType { get; set; }
+    public LossType LossType { get; set; }
 }
 
 public class LossType
@@ -27,7 +27,7 @@ public class LossType
     public string Name { get; set; }
     public string NameEnglish { get; set; }  
     public string? Description { get; set; }
-    public Uri? uri { get; set; }
+    public Uri? Uri { get; set; }
     public List<RussinLoss> RussinLosses { get; set; }
 }
 

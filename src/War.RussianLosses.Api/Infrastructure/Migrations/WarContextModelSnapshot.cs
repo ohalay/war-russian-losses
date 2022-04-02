@@ -40,7 +40,7 @@ namespace War.RussianLosses.Api.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("uri")
+                    b.Property<string>("Uri")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -74,13 +74,13 @@ namespace War.RussianLosses.Api.Infrastructure.Migrations
 
             modelBuilder.Entity("RussinLoss", b =>
                 {
-                    b.HasOne("LossType", "LosType")
+                    b.HasOne("LossType", "LossType")
                         .WithMany("RussinLosses")
                         .HasForeignKey("LossTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("LosType");
+                    b.Navigation("LossType");
                 });
 
             modelBuilder.Entity("LossType", b =>

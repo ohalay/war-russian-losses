@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace War.RussianLosses.Api.Infrastructure.Migrations
 {
     [DbContext(typeof(WarContext))]
-    [Migration("20220328183608_Initial")]
+    [Migration("20220402195206_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,7 +42,7 @@ namespace War.RussianLosses.Api.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("uri")
+                    b.Property<string>("Uri")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -76,13 +76,13 @@ namespace War.RussianLosses.Api.Infrastructure.Migrations
 
             modelBuilder.Entity("RussinLoss", b =>
                 {
-                    b.HasOne("LossType", "LosType")
+                    b.HasOne("LossType", "LossType")
                         .WithMany("RussinLosses")
                         .HasForeignKey("LossTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("LosType");
+                    b.Navigation("LossType");
                 });
 
             modelBuilder.Entity("LossType", b =>

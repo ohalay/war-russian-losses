@@ -1,13 +1,12 @@
 # War russian losses
 
-<!--- These are examples. See https://shields.io for others or to customize this set of shields. You might want to include dependencies, project status and licence info here --->
 [![Deploy to Heroku](https://github.com/ohalay/war-russian-losses/actions/workflows/deploy.yml/badge.svg)](https://github.com/ohalay/war-russian-losses/actions/workflows/deploy.yml)
 ![GitHub repo size](https://img.shields.io/github/repo-size/ohalay/war-russian-losses)
 ![GitHub contributors](https://img.shields.io/github/contributors/ohalay/war-russian-losses)
 ![GitHub stars](https://img.shields.io/github/stars/ohalay/war-russian-losses?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/ohalay/war-russian-losses?style=social)
 
-Project is an `API` that allows `users` to get information about russian losses in Ukrainian-Russian war from day to day. API is base on GraphQL.
+Project is an `API` that allows `users` to get information about russian losses in Ukrainian-Russian war from day to day. API is base on GraphQL. All date from [Ministry of Defence Ukraine](https://www.mil.gov.ua/)
 
 ## Prerequisites
 Before you begin, ensure you have met the following requirements:
@@ -22,12 +21,13 @@ To install `War.RussianLosses.Api`, follow these steps:
 - Add ef core *postgre connection* string to user secrets
 - Run `Update-Database` from ms vs or ef core .net tool
 - Run insert script `Infrastructure\Migrations\Insert.sql`
+- Run tests to insert losses (initial and delta if need)
 
 ## Using War.RussianLosses.Api
 There are two option possible for using API with host - http://ukrainian-war.herokuapp.com
 
 * `{host}/graphql` - graphql API with documented schema
-* `{host}/image?from=<date>&to=<date>` - generate image with date range 
+* `{host}/img?from=<date>&to=<date>` - generate image with date range (date rage is optional)
 
 ## Contributing to War.RussianLosses.Api
 To contribute to `War.RussianLosses.Api`, follow these steps:

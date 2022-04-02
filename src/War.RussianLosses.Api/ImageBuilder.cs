@@ -10,24 +10,38 @@ namespace War.RussianLosses.Api
     {
         private static readonly string _assetsPath = Path.Combine(Directory.GetCurrentDirectory(), "assets");
         
-        private readonly WarContext _warContext;
+        private readonly LossesAmountService _lossesAmountService;
 
-        public ImageBuilder(WarContext warContext)
+        public ImageBuilder(LossesAmountService lossesAmountService)
         {
-            _warContext = warContext;
+            _lossesAmountService = lossesAmountService;
         }
 
         public async Task<Stream> BuildImgStreamAsync(DateOnly? from, DateOnly? to)
         {
-            
-            using var originalImg = await Image.LoadAsync(Path.Combine(_assetsPath, "placeholder.jpg"));
+            var font = GetFont(40);
+            var pen = new Pen(Color.White, 2);
+            var point =  new Point(200, 150);
+            var offset = 60;
 
-            originalImg.Mutate(ctx => ctx.DrawText(
-                "Losses",
-                GetFont(30),
-                Color.White,
-                new Point (50,50)
-            ));
+            using var originalImg = await Image.LoadAsync(Path.Combine(_assetsPath, "placeholder.jpg"));
+            var data = await _lossesAmountService.GetLossesAmountAsync(from, to);
+
+            originalImg.Mutate(ctx =>
+            {
+                ctx.DrawText(
+                    new TextOptions(font) { HorizontalAlignment = HorizontalAlignment.Center, Origin = new Point(originalImg.Width/2, 30) },
+                    GetTitle(from, to),
+                    pen);
+
+                foreach (var item in data)
+                {
+                    ctx.DrawText(new TextOptions(font) { HorizontalAlignment = HorizontalAlignment.Right, Origin = point}, item.count.ToString(), pen);
+                    ctx.DrawText(new TextOptions(font) { Origin = point }, $"   {item.name}", pen);
+
+                    point = new Point(point.X, point.Y + offset);
+                }
+            });
             
             var memoryStream = new MemoryStream();
             await originalImg.SaveAsJpegAsync(memoryStream);
@@ -42,6 +56,16 @@ namespace War.RussianLosses.Api
             var family = collection.Add(Path.Combine(_assetsPath, "OpenSans.ttf"));
 
             return family.CreateFont(size, FontStyle.Regular);
+        }
+
+        private static string GetTitle(DateOnly? from, DateOnly? to)
+        {
+            var text = "Орієнтовні втрати русні";
+            var startDate = from ?? new DateOnly(2022, 2, 24);
+            var endDate = to ?? DateOnly.FromDateTime(DateTime.Now);
+            var dateFormat = "dd.MM.yy";
+
+            return $"{text} {startDate.ToString(dateFormat)} - {endDate.ToString(dateFormat)}";
         }
     }
 }

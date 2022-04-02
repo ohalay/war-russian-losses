@@ -19,7 +19,7 @@ namespace War.RussianLosses.Api.Infrastructure.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     NameEnglish = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
-                    uri = table.Column<string>(type: "text", nullable: true)
+                    Uri = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
