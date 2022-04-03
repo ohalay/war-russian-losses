@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using War.RussianLosses.Api;
 using Xunit;
 
 namespace ParsLusses.Tests
@@ -10,6 +12,7 @@ namespace ParsLusses.Tests
     public class InsertLossesTests : IDisposable
     {
         private readonly WarContext _context;
+        private readonly LossesDataLoader _loader;
 
         public InsertLossesTests()
         {
@@ -21,28 +24,28 @@ namespace ParsLusses.Tests
                 .UseNpgsql(configuration.GetConnectionString("Postgre"));
 
             _context = new WarContext(contextBuilder.Options);
+            _loader = new LossesDataLoader();
         }
 
 
         [Fact(Skip = "Insert initial data")]
         public async Task InserInitialData()
         {
-            var lusses = await new DataParser()
-                .ParsFromFileAsync("losses-initial.txt");
+            var path = Path.Combine("assets", "losses-initial.txt");
+            var losses = await _loader.ParsFromFileAsync(path);
 
-            await _context.AddRangeAsync(lusses);
+            await _context.AddRangeAsync(losses);
             await _context.SaveChangesAsync();
         }
 
         [Fact(Skip = "Insert delta")]
         public async Task InserDelta()
         {
-            DateOnly skipData = DateOnly.ParseExact("01/04/2022", "dd/MM/yyyy");
+            DateOnly skipData = DateOnly.ParseExact("02/04/2022", "dd/MM/yyyy");
+            var path = Path.Combine("assets", "losses-delta.txt");
+            var losses = await _loader.ParsFromFileAsync(path);
 
-            var lusses = await new DataParser()
-                .ParsFromFileAsync("losses-delta.txt");
-
-            await _context.AddRangeAsync(lusses.SkipWhile(s => s.Date == skipData));
+            await _context.AddRangeAsync(losses.SkipWhile(s => s.Date == skipData));
             await _context.SaveChangesAsync();
         }
 

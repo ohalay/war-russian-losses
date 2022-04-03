@@ -21,7 +21,7 @@ To install `War.RussianLosses.Api`, follow these steps:
 - Add ef core *postgre connection* string to user secrets
 - Run `Update-Database` from ms vs or ef core .net tool
 - Run insert script `Infrastructure\Migrations\Insert.sql`
-- Run tests to insert losses (initial and delta if need)
+- Run `InsertLossesTests` tests to insert losses (initial and delta if need)
 
 ## Using War.RussianLosses.Api
 There are two option possible for using API with host - http://ukrainian-war.herokuapp.com

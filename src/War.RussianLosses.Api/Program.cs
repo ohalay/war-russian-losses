@@ -5,7 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddDbContext<WarContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("Postgre")))
     .AddScoped<ImageBuilder>()
-    .AddScoped<LossesAmountService>();
+    .AddScoped<LossesAmountService>()
+    .AddTransient<LossesDataLoader>()
+    .AddHostedService<AddLastLossesHostedService>();
 
 builder.Services
     .AddGraphQLServer()

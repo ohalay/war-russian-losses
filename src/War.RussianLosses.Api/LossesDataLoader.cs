@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using HtmlAgilityPack;
 
-namespace ParsLusses.Tests
+namespace War.RussianLosses.Api
 {
     /// <summary>
     /// Data source https://www.mil.gov.ua/
     /// </summary>
-    internal class DataParser
+    public class LossesDataLoader
     {
         private Dictionary<string, int> _nameToTypeMapper = new Dictionary<string, int>
         {
@@ -29,6 +25,19 @@ namespace ParsLusses.Tests
             ["Особовий склад"] = 1
         };
 
+        public List<RussinLoss> LastLosses(HtmlDocument doc)
+        {
+            var data = doc.DocumentNode.Descendants("li")
+                .Where(node => node.GetAttributeValue("class", "").Contains("gold") && !node.GetAttributeValue("type", "").Contains("square"))
+                .Select(s => new { date = s.FirstChild.InnerText, losses = s.SelectSingleNode("div").Descendants("li").Select(s => s.InnerText) })
+                .Take(2)
+                .ToDictionary(s => DateOnly.ParseExact(s.date, "dd.MM.yyyy"), s => s.losses.Select(k => GetLosses(k, "&nbsp;&mdash; ")).ToList());
+
+            return ConvertToEntities(data)
+                .Where(s => s.Date != DateOnly.FromDateTime(DateTime.Now.AddDays(-1)))
+                .ToList();
+        }
+
         public async Task<List<RussinLoss>> ParsFromFileAsync(string path)
         {
             using var file = File.OpenRead(path);
@@ -47,15 +56,16 @@ namespace ParsLusses.Tests
                     continue;
                 }
 
-                data[curentDate].Add(GetLosses(line));
+                data[curentDate].Add(GetLosses(line, " — "));
             }
 
-            return ConvertToEntities(data).ToList();
+            return ConvertToEntities(data)
+                .ToList();
         }
 
-        private (string name, int count) GetLosses(string line)
+        private (string name, int count) GetLosses(string line, string separator)
         {
-            var rowItems = line.Split(" — ");
+            var rowItems = line.Split(separator);
 
             var secondValues = rowItems[1].Split(' ');
             int index = 0;
