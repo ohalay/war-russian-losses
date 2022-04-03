@@ -6,6 +6,12 @@ public class WarContext : DbContext
         : base(options)
     {
     }
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.Entity<RussinLoss>()
+            .HasIndex(u => new { u.Date, u.LossTypeId })
+            .IsUnique();
+    }
 
     public DbSet<RussinLoss> RussinLosses { get; set; }
     public DbSet<LossType> LossTypes { get; set; }
