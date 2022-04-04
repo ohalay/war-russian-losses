@@ -22,8 +22,23 @@ namespace War.RussianLosses.Api
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            // every day at 10am utc
-            await WaitForNextScheduleAsync("0 10 * * *");
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                // every day at 10am utc
+                await WaitForNextScheduleAsync("0 10 * * *", stoppingToken);
+                try
+                {
+                    await RunAsync(stoppingToken);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, ex.Message);
+                }
+            }
+        }
+
+        private async Task RunAsync(CancellationToken stoppingToken)
+        {
             _logger.LogInformation("Start load last losses.");
 
             var entities = _lossesDataLoader.LastLosses(new HtmlWeb().Load("https://index.minfin.com.ua/ua/russian-invading/casualties/"));
@@ -34,12 +49,12 @@ namespace War.RussianLosses.Api
             var context = scope.ServiceProvider.GetRequiredService<WarContext>();
 
             await context.AddRangeAsync(entities);
-            await context.SaveChangesAsync();
+            await context.SaveChangesAsync(stoppingToken);
 
             _logger.LogInformation("Saved last losses.");
         }
 
-        private async Task WaitForNextScheduleAsync(string cronExpression)
+        private async Task WaitForNextScheduleAsync(string cronExpression, CancellationToken stoppingToken)
         {
             var parsedExp = CronExpression.Parse(cronExpression);
             var currentUtcTime = DateTimeOffset.UtcNow.UtcDateTime;
@@ -47,7 +62,7 @@ namespace War.RussianLosses.Api
 
             var delay = occurenceTime.GetValueOrDefault() - currentUtcTime;
 
-            await Task.Delay(delay);
+            await Task.Delay(delay, stoppingToken);
         }
     }
 }
