@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3543D467-90E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7873176E-62E7-45FA-BAB1-64B08DD0F027}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParsLusses.Tests", "test\ParsLusses.Tests\ParsLusses.Tests.csproj", "{44D9701D-C103-479F-BCC4-D68732546E07}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseLosses.Tests", "test\ParseLosses.Tests\ParseLosses.Tests.csproj", "{44D9701D-C103-479F-BCC4-D68732546E07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

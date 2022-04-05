@@ -3,7 +3,7 @@ using System.IO;
 using War.RussianLosses.Api.Services;
 using Xunit;
 
-namespace ParsLusses.Tests
+namespace ParseLosses.Tests
 {
     public class LossesDataLoaderTests
     {

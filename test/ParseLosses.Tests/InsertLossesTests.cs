@@ -4,10 +4,11 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using War.RussianLosses.Api;
 using War.RussianLosses.Api.Services;
 using Xunit;
 
-namespace ParsLusses.Tests
+namespace ParseLosses.Tests
 {
     public class InsertLossesTests : IDisposable
     {
@@ -21,7 +22,7 @@ namespace ParsLusses.Tests
                 .Build();
 
             var contextBuilder = new DbContextOptionsBuilder<WarContext>()
-                .UseNpgsql(configuration.GetConnectionString("Postgre"));
+                .UseNpgsql(configuration.GetConnectionString(Const.DbType));
 
             _context = new WarContext(contextBuilder.Options);
             _loader = new LossesDataLoader();
@@ -32,7 +33,7 @@ namespace ParsLusses.Tests
         public async Task InserInitialData()
         {
             var path = Path.Combine("assets", "losses-initial.txt");
-            var losses = await _loader.ParsFromFileAsync(path);
+            var losses = await _loader.ParseFromFileAsync(path);
 
             await _context.AddRangeAsync(losses);
             await _context.SaveChangesAsync();
@@ -43,7 +44,7 @@ namespace ParsLusses.Tests
         {
             DateOnly skipData = DateOnly.ParseExact("02/04/2022", "dd/MM/yyyy");
             var path = Path.Combine("assets", "losses-delta.txt");
-            var losses = await _loader.ParsFromFileAsync(path);
+            var losses = await _loader.ParseFromFileAsync(path);
 
             await _context.AddRangeAsync(losses.SkipWhile(s => s.Date == skipData));
             await _context.SaveChangesAsync();

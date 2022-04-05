@@ -17,11 +17,11 @@ namespace War.RussianLosses.Api.Services
                  .Include(s => s.LossType)
                  .Where(s => startDate == null || s.Date >= startDate)
                  .Where(s => endDate == null || s.Date <= endDate)
-                 .GroupBy(s => s.LossType.Name)
-                 .Select(g => new RusionLossesAmount(g.Key, g.Sum(s => s.Count)))
+                 .GroupBy(s => new { s.LossType.Name, s.LossType.NameEnglish })
+                 .Select(g => new RusionLossesAmount(g.Key.Name, g.Key.NameEnglish, g.Sum(s => s.Count)))
                  .ToListAsync();
         }
 
-        public record RusionLossesAmount(string name, int count);
+        public record RusionLossesAmount(string name, string nameEnglish, int count);
     }
 }

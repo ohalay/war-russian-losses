@@ -38,7 +38,7 @@ namespace War.RussianLosses.Api.Services
                 .ToList();
         }
 
-        public async Task<List<RussinLoss>> ParsFromFileAsync(string path)
+        public async Task<List<RussinLoss>> ParseFromFileAsync(string path)
         {
             using var file = File.OpenRead(path);
             using var reader = new StreamReader(file);
