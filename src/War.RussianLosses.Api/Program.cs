@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Mime;
 using System.Text.Json;
+using War.RussianLosses.Api.HosedServices;
+using War.RussianLosses.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

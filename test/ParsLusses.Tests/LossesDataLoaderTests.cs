@@ -1,6 +1,6 @@
 using HtmlAgilityPack;
 using System.IO;
-using War.RussianLosses.Api;
+using War.RussianLosses.Api.Services;
 using Xunit;
 
 namespace ParsLusses.Tests

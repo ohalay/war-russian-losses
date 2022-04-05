@@ -1,6 +1,6 @@
 ﻿using HtmlAgilityPack;
 
-namespace War.RussianLosses.Api
+namespace War.RussianLosses.Api.Services
 {
     /// <summary>
     /// Data source https://www.mil.gov.ua/
@@ -87,11 +87,11 @@ namespace War.RussianLosses.Api
                     if (preDay == default)
                     {
                         preDay = day.Value;
-                        return day.Value.Select(s => new RussinLoss 
+                        return day.Value.Select(s => new RussinLoss
                         {
                             Date = day.Key,
                             Count = s.Value,
-                            LossTypeId = _nameToTypeMapper[s.Key] 
+                            LossTypeId = _nameToTypeMapper[s.Key]
                         }).ToList();
                     }
 

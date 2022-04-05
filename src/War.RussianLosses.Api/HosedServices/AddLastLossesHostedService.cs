@@ -1,8 +1,9 @@
 ﻿using Cronos;
 using HtmlAgilityPack;
 using System.Text.Json;
+using War.RussianLosses.Api.Services;
 
-namespace War.RussianLosses.Api
+namespace War.RussianLosses.Api.HosedServices
 {
     public class AddLastLossesHostedService : BackgroundService
     {
@@ -24,8 +25,8 @@ namespace War.RussianLosses.Api
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                // every day at 10am utc
-                await WaitForNextScheduleAsync("0 10 * * *", stoppingToken);
+                // every day at 7am utc
+                await WaitForNextScheduleAsync("0 7 * * *", stoppingToken);
                 try
                 {
                     await RunAsync(stoppingToken);

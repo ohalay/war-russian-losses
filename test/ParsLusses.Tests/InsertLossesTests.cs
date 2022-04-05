@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using War.RussianLosses.Api;
+using War.RussianLosses.Api.Services;
 using Xunit;
 
 namespace ParsLusses.Tests

@@ -1,4 +1,4 @@
-﻿namespace War.RussianLosses.Api
+﻿namespace War.RussianLosses.Api.HosedServices
 {
     /// <summary>
     /// We host solution to Heroku cloud and it have idle timeout - 30m.

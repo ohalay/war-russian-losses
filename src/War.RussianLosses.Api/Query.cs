@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using static War.RussianLosses.Api.LossesAmountService;
+using War.RussianLosses.Api.Services;
+using static War.RussianLosses.Api.Services.LossesAmountService;
 
 namespace War.RussianLosses.Api
 {
@@ -15,6 +16,5 @@ namespace War.RussianLosses.Api
 
         public Task<List<RusionLossesAmount>> GetRussinLossesAmount([Service] LossesAmountService svc, DateOnly? from, DateOnly? to)
             => svc.GetLossesAmountAsync(from, to);
-
     }
 }

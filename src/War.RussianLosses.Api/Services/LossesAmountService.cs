@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace War.RussianLosses.Api
+namespace War.RussianLosses.Api.Services
 {
     public class LossesAmountService
     {
@@ -16,7 +16,7 @@ namespace War.RussianLosses.Api
             return _warContext.RussinLosses
                  .Include(s => s.LossType)
                  .Where(s => startDate == null || s.Date >= startDate)
-                 .Where(s => endDate == null ||s.Date <= endDate )
+                 .Where(s => endDate == null || s.Date <= endDate)
                  .GroupBy(s => s.LossType.Name)
                  .Select(g => new RusionLossesAmount(g.Key, g.Sum(s => s.Count)))
                  .ToListAsync();
