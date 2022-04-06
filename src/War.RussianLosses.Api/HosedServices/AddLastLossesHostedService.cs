@@ -25,8 +25,8 @@ namespace War.RussianLosses.Api.HosedServices
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                // every day at 7am utc
-                await WaitForNextScheduleAsync("0 7 * * *", stoppingToken);
+                // every day at 7:30am utc
+                await WaitForNextScheduleAsync("30 7 * * *", stoppingToken);
                 try
                 {
                     await RunAsync(stoppingToken);
