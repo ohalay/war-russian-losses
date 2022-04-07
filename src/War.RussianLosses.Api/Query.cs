@@ -7,14 +7,14 @@ namespace War.RussianLosses.Api
     public class Query
     {
         [UseProjection, UseFiltering, UseSorting]
-        public IQueryable<LossType> GetLossType([Service] WarContext ctx)
+        public IQueryable<LossType> GetLossType(WarContext ctx)
             => ctx.LossTypes;
 
         [UseProjection, UseFiltering, UseSorting]
-        public IQueryable<RussinLoss> GetRussinLosses([Service] WarContext ctx)
+        public IQueryable<RussinLoss> GetRussinLosses(WarContext ctx)
             => ctx.RussinLosses.Include(s => s.LossType);
 
-        public Task<List<RusionLossesAmount>> GetRussinLossesAmount([Service] LossesAmountService svc, DateOnly? from, DateOnly? to)
+        public Task<List<RusionLossesAmount>> GetRussinLossesAmount([Service]LossesAmountService svc, DateOnly? from, DateOnly? to)
             => svc.GetLossesAmountAsync(from, to);
     }
 }

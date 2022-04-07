@@ -2,7 +2,7 @@
 
 namespace War.RussianLosses.Api.Services
 {
-    public class LossesAmountService
+    public class LossesAmountService : IAsyncDisposable
     {
         private readonly WarContext _warContext;
 
@@ -21,6 +21,9 @@ namespace War.RussianLosses.Api.Services
                  .Select(g => new RusionLossesAmount(g.Key.Name, g.Key.NameEnglish, g.Sum(s => s.Count)))
                  .ToListAsync();
         }
+
+        public ValueTask DisposeAsync()
+            => _warContext.DisposeAsync();
 
         public record RusionLossesAmount(string name, string nameEnglish, int count);
     }

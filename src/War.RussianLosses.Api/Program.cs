@@ -20,11 +20,12 @@ builder.Services
 
 builder.Services
     .AddGraphQLServer()
-    .RegisterDbContext<WarContext>(DbContextKind.Pooled)
+    .RegisterDbContext<WarContext>(DbContextKind.Resolver)
+    .RegisterService<WarmerHostedService>()
     .AddQueryType<Query>()
-    .AddProjections()
     .AddFiltering()
-    .AddSorting();
+    .AddSorting()
+    .AddProjections();
 
 var app = builder.Build();
 
