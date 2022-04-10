@@ -23,13 +23,19 @@ namespace War.RussianLosses.Api.HosedServices
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            // every day at 7:00am utc
+            var scedule = CronExpression.Parse("0 7 * * *");
+            var offset = 30;
+            var repitedCount = 0;
+
             while (!stoppingToken.IsCancellationRequested)
             {
-                // every day at 7:30am utc
-                await WaitForNextScheduleAsync("30 7 * * *", stoppingToken);
+                await WaitForNextScheduleAsync(scedule, repitedCount * offset, stoppingToken);
                 try
                 {
-                    await RunAsync(stoppingToken);
+                    repitedCount = await RunAsync(stoppingToken)
+                        ? 0
+                        : ++repitedCount;
                 }
                 catch (Exception ex)
                 {
@@ -38,7 +44,7 @@ namespace War.RussianLosses.Api.HosedServices
             }
         }
 
-        private async Task RunAsync(CancellationToken stoppingToken)
+        private async Task<bool> RunAsync(CancellationToken stoppingToken)
         {
             _logger.LogInformation("Start load last losses.");
 
@@ -49,19 +55,20 @@ namespace War.RussianLosses.Api.HosedServices
             using var scope = _serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<WarContext>();
 
-            await context.AddRangeAsync(entities);
+            await context.AddRangeAsync(entities, stoppingToken);
             await context.SaveChangesAsync(stoppingToken);
 
             _logger.LogInformation("Saved last losses.");
+
+            return entities.Any();
         }
 
-        private async Task WaitForNextScheduleAsync(string cronExpression, CancellationToken stoppingToken)
+        private async Task WaitForNextScheduleAsync(CronExpression scedule, double extraMinutes, CancellationToken stoppingToken)
         {
-            var parsedExp = CronExpression.Parse(cronExpression);
             var currentUtcTime = DateTimeOffset.UtcNow.UtcDateTime;
-            var occurenceTime = parsedExp.GetNextOccurrence(currentUtcTime);
+            var occurenceTime = scedule.GetNextOccurrence(currentUtcTime);
 
-            var delay = occurenceTime.GetValueOrDefault() - currentUtcTime;
+            var delay = occurenceTime.GetValueOrDefault().AddMinutes(extraMinutes) - currentUtcTime;
 
             await Task.Delay(delay, stoppingToken);
         }
