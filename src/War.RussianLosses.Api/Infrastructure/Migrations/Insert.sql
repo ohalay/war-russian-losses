@@ -13,4 +13,6 @@ VALUES
 ('Корабелі / катери', 'Boats / Cutters', null),
 ('Цистерни з ПММ', 'Fuel tanks', 'Цистерна з паливно-мастильними матеріали'),
 ('БПЛА оперативно-тактичного рівня', 'UAV operational-tactical level ', 'Безпілоотниі літальниі апарати оперативно-тактичного рівня'),
-('Спеціальна техніка', 'Special equipment', null)
+('Спеціальна техніка', 'Special equipment', null),
+('Крилаті ракети', 'Curussil missile', null),
+('Автомобілі та автоцистерни', 'Vehicles & Fuel tanks', null)

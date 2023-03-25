@@ -18,7 +18,7 @@ namespace ParseLosses.Tests
         public InsertLossesTests()
         {
             var configuration = new ConfigurationBuilder()
-                .AddUserSecrets(GetType().Assembly)
+                .AddUserSecrets(typeof(Const).Assembly)
                 .Build();
 
             var contextBuilder = new DbContextOptionsBuilder<WarContext>()

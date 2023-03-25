@@ -22,7 +22,11 @@ namespace War.RussianLosses.Api.Services
             ["Кораблі (катери)"] = 11,
             ["Спеціальна техніка"] = 14,
             ["Пускові установки ОТРК"] = 9,
-            ["Особовий склад"] = 1
+            ["Особовий склад"] = 1,
+
+            ["Крилаті ракети"] = 15,
+            ["Автомобілі та автоцистерни"] = 16,
+
         };
 
         public List<RussinLoss> LastLosses(HtmlDocument doc)
@@ -63,9 +67,9 @@ namespace War.RussianLosses.Api.Services
                 .ToList();
         }
 
-        private (string name, int count) GetLosses(string line, string separator)
+        private (string name, int count) GetLosses(string line, params string[] separator)
         {
-            var rowItems = line.Split(separator);
+            var rowItems = line.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
             var secondValues = rowItems[1].Split(' ');
             int index = 0;
