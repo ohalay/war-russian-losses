@@ -14,7 +14,7 @@ jobs:
         with:
           dotnet-version: '7.0.x'
       - name: Install dependencies
-        run: dotnet restor
+        run: dotnet restore
       - name: Build
         run: dotnet build
       - name: Test with the dotnet CLI
