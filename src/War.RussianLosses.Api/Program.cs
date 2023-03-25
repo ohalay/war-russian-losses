@@ -14,7 +14,7 @@ builder.Services
     .AddScoped<LossesAmountService>()
     .AddTransient<LossesDataLoader>()
     .AddHostedService<AddLastLossesHostedService>()
-    .AddHostedService<WarmerHostedService>()
+    //.AddHostedService<WarmerHostedService>()
     .AddHealthChecks()
         .AddDbContextCheck<WarContext>(Const.DbType);
 

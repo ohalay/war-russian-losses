@@ -1,6 +1,6 @@
 # War russian losses
 
-[![Deploy to Heroku](https://github.com/ohalay/war-russian-losses/actions/workflows/deploy.yml/badge.svg)](https://github.com/ohalay/war-russian-losses/actions/workflows/deploy.yml)
+[![Build&Test](https://github.com/ohalay/war-russian-losses/actions/workflows/deploy.yml/badge.svg)](https://github.com/ohalay/war-russian-losses/actions/workflows/validate.yml)
 ![GitHub repo size](https://img.shields.io/github/repo-size/ohalay/war-russian-losses)
 ![GitHub contributors](https://img.shields.io/github/contributors/ohalay/war-russian-losses)
 ![GitHub stars](https://img.shields.io/github/stars/ohalay/war-russian-losses?style=social)
